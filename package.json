@@ -1,0 +1,5 @@
+{
+    "name":"timeout-callback",
+    "version":"0.0.3",
+    "description":"callback function wrapper with timeout functionality"
+}
