@@ -4,7 +4,7 @@ module.exports = function(timeout,callback){
     var called = false;
     if(typeof timeout === 'function'){
         callback = timeout;
-        timeout = 30*1000;
+        timeout = 10*1000;
     }
 
     var interval = setTimeout(function(){
