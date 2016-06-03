@@ -1,4 +1,4 @@
-'use string';
+'use strict';
 
 module.exports = function(timeout,callback){
     var called = false;
