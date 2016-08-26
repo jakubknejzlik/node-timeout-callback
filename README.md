@@ -10,7 +10,7 @@ This wrapper makes this task easy. Just do:
 	
 	
 	
-By default timeout is set to 30 seconds, you can change this interval by specifying timeout as first argument (in milliseconds)
+By default timeout is set to 10 seconds, you can change this interval by specifying timeout as first argument (in milliseconds)
 
 	timeoutCallback(60*1000,myCallbackFunction);
 
