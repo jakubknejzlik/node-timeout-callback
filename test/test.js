@@ -12,6 +12,7 @@ describe('test callback timeout',function(){
         var tc = timeoutCallback(c);
         tc(null,'aaa','bbb');
     });
+
     it('should call callback function with delay',function(done){
         var c = function(err,arg1,arg2){
             assert.equal(arg1,'aaa');
@@ -36,5 +37,14 @@ describe('test callback timeout',function(){
             tc(null,'aaa','bbb');
         },2000);
     });
-})
 
+    it('should execute callback immediately',function() {
+      var c = function(err,arg1,arg2){
+          assert.ok(err == null)
+          assert.equal(arg1,'aaa');
+          assert.equal(arg2,'bbb');
+      }
+      var tc = timeoutCallback(500,c);
+      tc(null,'aaa','bbb');
+    })
+})
