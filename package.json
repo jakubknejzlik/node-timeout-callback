@@ -1,6 +1,6 @@
 {
   "name": "timeout-callback",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "callback function wrapper with timeout functionality",
   "repository": {
     "type": "git",
