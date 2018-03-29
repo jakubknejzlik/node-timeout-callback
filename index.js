@@ -1,13 +1,27 @@
 "use strict";
 
-module.exports = function(timeout, callback) {
-  var called = false;
+const defaultOptions = {
+    isolateFirstArgForTimeoutError: true,
+};
+
+module.exports = function(timeout, callback, options) {
+  let called = false;
+
+  // Check to see if it's actually an options object.
+  if (typeof callback === "object"
+    && callback.hasOwnProperty("isolateFirstArgForTimeoutError")
+  ) {
+    options = callback;
+  }
+
   if (typeof timeout === "function") {
     callback = timeout;
     timeout = 10 * 1000;
   }
 
-  var interval = setTimeout(
+  options = { ...defaultOptions, ...options };
+
+  let interval = setTimeout(
     function() {
       if (called) return;
       called = true;
@@ -16,12 +30,15 @@ module.exports = function(timeout, callback) {
     timeout
   );
 
-  return function() {
+  return function(...args) {
     if (called) return;
     called = true;
     clearTimeout(interval);
-    const args = Array.prototype.slice.call(arguments);
-    args.unshift(null);
-    callback.apply(this, args);
+
+    if (options.isolateFirstArgForTimeoutError) {
+      args.unshift(null);
+    }
+
+    callback(...args);
   };
 };

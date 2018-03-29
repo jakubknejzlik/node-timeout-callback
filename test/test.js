@@ -53,4 +53,33 @@ describe("test callback timeout", function() {
     var tc = timeoutCallback(500, c);
     tc("aaa", "bbb");
   });
+
+  describe("option obedience", function() {
+    describe("'isolateFirstArgForTimeoutError' option", function() {
+      it("without a timeout error", function(done) {
+        var c = function (arg1, arg2) {
+          assert.equal(arg1, "aaa");
+          assert.equal(arg2, "bbb");
+          done();
+        };
+
+        var tc = timeoutCallback(c, {
+          isolateFirstArgForTimeoutError: false,
+        });
+        tc("aaa", "bbb");
+      });
+
+      it("with a timeout error", function(done) {
+        var c = function (err) {
+          assert.ok(err instanceof Error);
+          assert.equal(err.message, "callback timeout");
+          done();
+        };
+
+        var tc = timeoutCallback(100, c, {
+          isolateFirstArgForTimeoutError: false,
+        });
+      });
+    });
+  });
 });
